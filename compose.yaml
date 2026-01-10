@@ -10,3 +10,20 @@ services:
       - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+    networks:
+      - jenkins-net
+
+  agent:
+    container_name: jenkins_agent
+    image: jenkins/ssh-agent:jdk17
+    expose:
+      - 22
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=${JENKINS_AGENT_SSH_PUBKEY}
+    restart: unless-stopped
+    networks:
+      - jenkins-net
+
+networks:
+  jenkins-net:
+    driver: bridge
