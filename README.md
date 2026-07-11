@@ -23,7 +23,10 @@ Copy the file `.env.template` to `.env` and fill in the variables. Ignore
 cp .env.template .env
 ```
 
-Start the container with
+Ensure the domain specified in `.env` resolves to the ip address of the nginx
+reverse proxy.
+
+Start the container with:
 
 ```bash
 docker compose up -d
@@ -40,9 +43,10 @@ docker logs jenkins | less
 Enter the password and click continue. On the next page, select ‘Install
 Suggested Plug-ins’.
 
-Once the plugins have installed create an admin user. Use ‘admin’ as the username,
-and select a good password. Full name can be ‘Administrator’ and use your email address.
-Set the Jenkins URL to whatever you will use to access it.
+Once the plugins have installed create an admin user. Use ‘admin’ as the
+username, and select a good password. Full name can be ‘Administrator’ and use
+your email address. Set the Jenkins URL to whatever you `DOMAIN` is set to in
+the `.env` file.
 
 ## Add a Jenkins Agent
 
