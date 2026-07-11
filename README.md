@@ -10,7 +10,7 @@ Docker compose configuration for runnign Jenkins on ubuntu server
 
 ## Set Up
 
-Clone this repository
+Clone this repository:
 
 ```bash
 git clone git@github.com:blm34/rpi-server-pihole.git
@@ -30,14 +30,15 @@ docker compose up -d
 ```
 
 Go to the web UI at `<ip-address>:8080` which will ask for the administrator
-password. This can be found in the docker logs as follows
+password. This can be found in the docker logs as follows:
 
 ```bash
 # Get the Jenkins admin password
 docker logs jenkins | less
 ```
 
-Enter the password and click continue. On the next page, select ‘Install Suggested Plug-ins’.
+Enter the password and click continue. On the next page, select ‘Install
+Suggested Plug-ins’.
 
 Once the plugins have installed create an admin user. Use ‘admin’ as the username,
 and select a good password. Full name can be ‘Administrator’ and use your email address.
