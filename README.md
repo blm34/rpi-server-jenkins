@@ -2,6 +2,12 @@
 
 Docker compose configuration for runnign Jenkins on ubuntu server
 
+## Requirements
+
+* Docker
+* Docker compose
+* An Nginx reverse proxy running as configured [here](https://github.com/blm34/self-hosted-nginx)
+
 ## Set Up
 
 Clone this repository
