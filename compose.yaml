@@ -4,9 +4,6 @@ services:
     image: jenkins/jenkins:lts
     privileged: true
     user: root
-    # Uncomment if not accessible through reverse proxy
-    # ports:
-      # - 8080:8080  # Web UI
     environment:
       VIRTUAL_HOST: ${DOMAIN}
       LETSENCRYPT_HOST: ${DOMAIN}
