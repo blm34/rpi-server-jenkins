@@ -12,6 +12,12 @@ services:
       - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8080/login"]
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 90s
     networks:
       - jenkins-net
       - nginx-proxy-net
