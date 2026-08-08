@@ -1,23 +1,32 @@
 services:
   jenkins:
     container_name: jenkins
-    image: jenkins/jenkins:lts
+    image: jenkins/jenkins:2.568.2
     privileged: true
     user: root
+    restart: unless-stopped
+
+    labels:
+      wud.trigger.include: ntfy.local,dockercompose.jenkins
+      wud.tag.include: ^\d+\.\d+\.\d+$
+      wud.compose.file: /wud/jenkins/compose.yaml
+
     environment:
       VIRTUAL_HOST: ${DOMAIN}
       LETSENCRYPT_HOST: ${DOMAIN}
       VIRTUAL_PORT: 8080
+
     volumes:
       - ./jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
+
     healthcheck:
       test: ["CMD", "curl", "--fail", "--silent", "--show-error", "http://localhost:8080/login"]
       interval: 60s
       timeout: 30s
       retries: 3
       start_period: 90s
+
     networks:
       - jenkins-net
       - nginx-proxy-net
@@ -25,11 +34,17 @@ services:
   agent:
     container_name: jenkins_agent
     image: jenkins-agent:python-3.14
+    restart: unless-stopped
+
+    labels:
+      wud.watch: false
+
     expose:
       - 22
+
     environment:
       - JENKINS_AGENT_SSH_PUBKEY=${JENKINS_AGENT_SSH_PUBKEY}
-    restart: unless-stopped
+
     networks:
       - jenkins-net
 
